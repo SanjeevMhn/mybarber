@@ -1,3 +1,4 @@
+import BarberCard from "@/components/BarberCard";
 import Input from "@/components/Input";
 import Section from "@/components/Section";
 import { Calendar } from "@/components/ui/calendar";
@@ -10,6 +11,28 @@ type BookAppointmentInputs = {
 };
 
 const BookNow = () => {
+  const barbersList: Array<{
+    img?: string;
+    name: string;
+    desc: string;
+  }> = [
+    {
+      name: "Bikram Raut",
+      desc: "Hair and Beard",
+    },
+    {
+      name: "Suman Shrestha",
+      desc: "Color and Massage",
+    },
+    {
+      name: "Kiran Rai",
+      desc: "Hair and Beard",
+    },
+    {
+      name: "Biraj Sharma",
+      desc: "Styling",
+    },
+  ];
   return (
     <div className="wrapper py-[1.5rem]">
       <div className="flex justify-between">
@@ -115,9 +138,14 @@ const BookNow = () => {
             </div>
           </form>
         </Section>
-        <Section title="Appointment Summmary">
-          <div className="summary-container"></div>
-        </Section>
+        <aside className="additional-info flex gap-[2rem] flex-col items-end">
+          <h2 className="text-[2rem] font-bold">Available Barbers</h2>
+          <ul className="available-providers-list flex flex-col gap-[1rem]">
+            {barbersList.map(({ name, desc }, index) => (
+              <BarberCard key={index} name={name} desc={desc} />
+            ))}
+          </ul>
+        </aside>
       </div>
     </div>
   );

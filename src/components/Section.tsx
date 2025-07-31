@@ -8,7 +8,7 @@ const Section: FC<{ title: string; children: ReactNode }> = ({
 }) => {
   return (
     <section className="services-section flex flex-col gap-[2rem]">
-      <h2 className="header text-[2.2rem] text-[#1C120D] font-bold">
+      <h2 className="header text-[2.85rem] text-[#1C120D] font-bold">
         {title}
       </h2>
       {children}
