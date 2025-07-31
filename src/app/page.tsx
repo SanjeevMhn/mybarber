@@ -38,15 +38,15 @@ export default function Home() {
   return (
     <main className="flex flex-col gap-[3rem] py-[1.5rem]">
       <div className="wrapper ">
-        <section className="hero-section relative isolate bg-[url(/hero.jpg)] aspect-video max-h-[calc(100vh - 10rem)] bg-cover bg-center rounded-xl">
+        <section className="hero-section relative isolate bg-orange-300 md:bg-[url(/hero.jpg)] aspect-video max-h-[calc(100vh - 10rem)] bg-cover bg-center rounded-xl">
           <div
-            className="hero-header-text absolute text-white  top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] w-full flex flex-col items-center gap-4 '
+            className="hero-header-text absolute text-white  top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] w-full flex flex-col items-center gap-4 max-w-[90%] lg:max-w-0'
           "
           >
-            <h1 className="text-[3.5rem] font-semibold">
+            <h1 className="text-[2rem] lg:text-[3.5rem] font-semibold text-center">
               Crafting Confidence, One Cut at a Time
             </h1>
-            <p className="text-[1.6rem] font-medium">
+            <p className="text-[1.2rem] lg:text-[1.6rem] font-medium text-center">
               Experience the art of grooming with our expert barbers. Book your
               appointment today and step out with a fresh, sharp look.
             </p>
