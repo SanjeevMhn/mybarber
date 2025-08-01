@@ -19,10 +19,12 @@ const BookNowForm = () => {
     handleSubmit,
     formState: { errors },
     watch,
+    setValue,
     control,
-  } = useForm<BookAppointmentInputs>({
-    mode: "onChange",
-  });
+    getValues,
+    resetField,
+    trigger,
+  } = useForm<BookAppointmentInputs>();
 
   const barbersList: Array<{
     img?: string;
@@ -48,6 +50,7 @@ const BookNowForm = () => {
   ];
 
   const handleAppointmentSubmit = (data: BookAppointmentInputs) => {
+    trigger("date");
     console.log(data);
   };
 
@@ -94,19 +97,30 @@ const BookNowForm = () => {
               Select Date
             </label>
             <Controller
-              name="date"
               control={control}
+              name="date"
               rules={{ required: "Please Select Date of Appointment" }}
-              render={({ field }) => (
-                <Calendar
-                  mode="single"
-                  numberOfMonths={2}
-                  className="rounded-lg border-2 text-[1.8rem]!"
-                  {...field}
-                />
+              render={({ field, fieldState }) => (
+                <>
+                  <Calendar
+                    mode="single"
+                    numberOfMonths={2}
+                    className="rounded-lg border-2 text-[1.8rem]!"
+                    {...field}
+                    onSelect={(date:any) => field.onChange(date)}
+                    selected={field.value}
+                  />
+                  {fieldState.error && (
+                    <span className="text-red-700">
+                      {fieldState.error.message}
+                    </span>
+                  )}
+                </>
               )}
             />
-            {errors.date && <span className="text-red-700">{errors.date.message}</span>}
+            {/* {errors.date && (
+              <span className="text-red-700">{errors.date.message}</span>
+            )} */}
           </div>
           <div className="form-group">
             <label htmlFor="" className="form-label">
@@ -116,46 +130,50 @@ const BookNowForm = () => {
               <li className="time">
                 <input
                   type="radio"
-                  id="9"
+                  id="9am"
                   className="time-select"
                   {...register("time", {
                     required: "Please select time of appointment",
                   })}
+                  value={'9am'}
                 />
-                <label htmlFor="9">9:00 AM</label>
+                <label htmlFor="9am">9:00 AM</label>
               </li>
               <li className="time">
                 <input
                   type="radio"
-                  id="10"
+                  id="10am"
                   className="time-select "
                   {...register("time", {
                     required: "Please select time of appointment",
                   })}
+                  value={'10am'}
                 />
-                <label htmlFor="10">10:00 AM</label>
+                <label htmlFor="10am">10:00 AM</label>
               </li>
               <li className="time">
                 <input
                   type="radio"
-                  id="11"
+                  id="11am"
                   className="time-select "
                   {...register("time", {
                     required: "Please select time of appointment",
                   })}
+                  value={'11am'}
                 />
-                <label htmlFor="11">11:00 AM</label>
+                <label htmlFor="11am">11:00 AM</label>
               </li>
               <li className="time">
                 <input
                   type="radio"
-                  id="12"
+                  id="12pm"
                   className="time-select "
                   {...register("time", {
                     required: "Please select time of appointment",
                   })}
+                  value={'12pm'}
                 />
-                <label htmlFor="12">12:00 PM</label>
+                <label htmlFor="12pm">12:00 PM</label>
               </li>
             </ul>
             {errors.time && (

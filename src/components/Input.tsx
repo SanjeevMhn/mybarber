@@ -53,7 +53,7 @@ const Input: FC<{
           <select {...props} className={`form-control ${className}`}>
             <option value="">{placeholder}</option>
             {optionData.options.map((opt, index) => (
-              <option value={optionData.optionValue} key={index}>
+              <option value={opt[optionData.optionValue]} key={index}>
                 {opt[optionData.optionDisplay]}
               </option>
             ))}
