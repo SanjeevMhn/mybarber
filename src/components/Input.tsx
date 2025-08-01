@@ -67,6 +67,7 @@ const Input: FC<{
           className={`form-control ${className}`}
         ></textarea>
       ) : null}
+      {error && <span className="text-red-700">{error}</span>}
     </div>
   );
 };

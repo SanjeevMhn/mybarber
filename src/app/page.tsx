@@ -60,7 +60,7 @@ export default function Home() {
             {servicesList.map(({ id, name, description, icon: Icon }) => (
               <li
                 key={id}
-                className="flex flex-col gap-4  border rounded-xl p-[1.2rem]"
+                className="flex flex-col gap-4  border-2 border-neutral-300 rounded-xl p-[1.2rem]"
               >
                 <span className="icon-container">
                   <Icon />
