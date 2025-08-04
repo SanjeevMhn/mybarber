@@ -93,6 +93,10 @@
     --foreground: #ededed;
   }
 } */
+html{
+  scroll-behavior: smooth;
+  scroll-padding-top: 6rem;
+}
 
 body {
   font-size: 1.6rem;
@@ -223,4 +227,23 @@ textarea.form-control {
   th{
     font-size: 1.4rem!important;
   }
+}
+
+.form{
+  .form-layout{
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    width: 100%;
+    .form-group{
+      width: 100%;
+      > * {
+        width: 100%;
+      }
+    }
+  }
+}
+
+button{
+  cursor: pointer!important;
 }

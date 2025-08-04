@@ -5,12 +5,27 @@ import BarberCard from "./BarberCard";
 import Input from "./Input";
 import Section from "./Section";
 import { Calendar } from "./ui/calendar";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "./ui/dialog";
+import { useEffect, useRef, useState } from "react";
 
 type BookAppointmentInputs = {
   service: string;
   date: Date;
   time: string;
   desc: string;
+};
+
+type UserInfoInputs = {
+  full_name: string;
+  email: string;
+  mobile_no: string;
+  address: string;
 };
 
 const BookNowForm = () => {
@@ -51,8 +66,32 @@ const BookNowForm = () => {
 
   const handleAppointmentSubmit = (data: BookAppointmentInputs) => {
     trigger("date");
-    console.log(data);
+    if (data) {
+      setOpenDialog(true);
+    }
   };
+
+  const {
+    register: userInfoRegister,
+    formState: { errors: userInfoErrors },
+    handleSubmit: handleUserInfoSubmit,
+    reset:userInfoFormReset
+  } = useForm<UserInfoInputs>();
+
+  const handleUserInfoSubmitFn = (data: UserInfoInputs) => {
+    if (data) {
+      console.log(data);
+    }
+  }
+
+  const userInfoFormRef = useRef<any>(null)
+
+  const handleOpenDialog = (open:boolean) => {
+    setOpenDialog(open)
+    userInfoFormReset()
+  }
+
+  const [openDialog, setOpenDialog] = useState<boolean>(false);
 
   return (
     <div className="flex justify-between">
@@ -107,7 +146,7 @@ const BookNowForm = () => {
                     numberOfMonths={2}
                     className="rounded-lg border-2 text-[1.8rem]!"
                     {...field}
-                    onSelect={(date:any) => field.onChange(date)}
+                    onSelect={(date: any) => field.onChange(date)}
                     selected={field.value}
                   />
                   {fieldState.error && (
@@ -135,7 +174,7 @@ const BookNowForm = () => {
                   {...register("time", {
                     required: "Please select time of appointment",
                   })}
-                  value={'9am'}
+                  value={"9am"}
                 />
                 <label htmlFor="9am">9:00 AM</label>
               </li>
@@ -147,7 +186,7 @@ const BookNowForm = () => {
                   {...register("time", {
                     required: "Please select time of appointment",
                   })}
-                  value={'10am'}
+                  value={"10am"}
                 />
                 <label htmlFor="10am">10:00 AM</label>
               </li>
@@ -159,7 +198,7 @@ const BookNowForm = () => {
                   {...register("time", {
                     required: "Please select time of appointment",
                   })}
-                  value={'11am'}
+                  value={"11am"}
                 />
                 <label htmlFor="11am">11:00 AM</label>
               </li>
@@ -171,7 +210,7 @@ const BookNowForm = () => {
                   {...register("time", {
                     required: "Please select time of appointment",
                   })}
-                  value={'12pm'}
+                  value={"12pm"}
                 />
                 <label htmlFor="12pm">12:00 PM</label>
               </li>
@@ -204,6 +243,75 @@ const BookNowForm = () => {
           ))}
         </ul>
       </aside>
+
+      <Dialog open={openDialog} onOpenChange={handleOpenDialog}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle className="text-[2rem] font-semibold">
+              Please enter your personal details
+            </DialogTitle>
+          </DialogHeader>
+          <form
+            className="form"
+            onSubmit={handleUserInfoSubmit(handleUserInfoSubmitFn)}
+          >
+            <div className="form-layout">
+              <Input
+                label="Full Name"
+                type="text"
+                input="input"
+                placeholder="Full Name"
+                {...userInfoRegister("full_name", {
+                  required: "Full Name Required",
+                })}
+                error={userInfoErrors.full_name?.message}
+              />
+              <Input
+                label="Email"
+                type="email"
+                input="input"
+                placeholder="Email"
+                {...userInfoRegister("email", {
+                  required: "Email Required",
+                })}
+                error={userInfoErrors.email?.message}
+              />
+              <Input
+                label="Mobile No."
+                input="input"
+                type="number"
+                placeholder="Mobile Number"
+                {...userInfoRegister("mobile_no", {
+                  required: "Mobile number Required",
+                  minLength: {
+                    value: 10,
+                    message: "Must be 10 digits long",
+                  },
+                })}
+                error={userInfoErrors.mobile_no?.message}
+              />
+              <Input
+                label="Address"
+                input="input"
+                type="text"
+                placeholder="Address"
+                {...userInfoRegister("address", {
+                  required: "Address Required",
+                })}
+                error={userInfoErrors.address?.message}
+              />
+            </div>
+            <div className="form-actions flex justify-end">
+              <button
+                type="submit"
+                className="btn p-[0.5rem_1rem] rounded-md bg-amber-600 text-white text-center cursor-pointer"
+              >
+                Submit
+              </button>
+            </div>
+          </form>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
