@@ -40,7 +40,7 @@ const Navbar = () => {
 
         ]
     return (
-        <nav className="main-nav border-b border-neutral-300 sticky top-0 z-100 bg-white">
+        <nav className="main-nav border-b border-neutral-300 sticky top-0 z-20 bg-white">
             <div className="flex items-center justify-between py-[1.2rem] w-[min(90%,140rem)] mx-auto">
                 <Link href={'/'} className="text-[2.2rem] ">Clippers</Link>
                 <ul className="nav-list flex items-center gap-4">
