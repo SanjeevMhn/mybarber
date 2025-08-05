@@ -34,7 +34,7 @@ const ContactForm: FC = () => {
   };
 
   return (
-    <form className="form" onSubmit={handleSubmit(handleContactFormSubmit)}>
+    <form className="form w-full" onSubmit={handleSubmit(handleContactFormSubmit)}>
       <div className="form-layout">
         <Input
           input="input"

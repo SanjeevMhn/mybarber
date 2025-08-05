@@ -198,6 +198,7 @@ textarea.form-control {
 .available-time-list{
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: 1.2rem;
   .time{
     label{
@@ -206,6 +207,7 @@ textarea.form-control {
       font-size: 1.5rem;
       color: #000;
       cursor: pointer;
+      white-space: nowrap;
       @apply border-2;
       @apply border-neutral-300;
       @apply rounded-md;

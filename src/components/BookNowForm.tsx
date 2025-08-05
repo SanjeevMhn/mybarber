@@ -16,9 +16,12 @@ import { useEffect, useRef, useState } from "react";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
+const today = new Date()
+today.setHours(0,0,0,0)
+
 const bookAppointmentSchema = z.object({
   service: z.string().nonempty({message: 'Please select service'}),
-  date: z.date({message: 'Please select date'}),
+  date: z.date({message: 'Please select date'}).min(today,{message: 'Selected Date cannot be before today'}),
   time: z.string({message: 'Please select time'}),
   desc: z.string()
 })
@@ -157,7 +160,7 @@ const BookNowForm = () => {
                   <Calendar
                     mode="single"
                     numberOfMonths={2}
-                    className="rounded-lg border-2 text-[1.8rem]!"
+                    className="rounded-lg border-2 text-[1.8rem]! w-full md:w-auto"
                     {...field}
                     onSelect={(date: any) => field.onChange(date)}
                     selected={field.value}
@@ -240,7 +243,7 @@ const BookNowForm = () => {
           </div>
         </form>
       </Section>
-      <aside className="additional-info flex gap-[2rem] flex-col px-[2rem]">
+      <aside className="additional-info gap-[2rem] flex-col px-[2rem] hidden md:flex">
         <h2 className="text-[2rem] font-bold">Available Barbers</h2>
         <ul className="available-providers-list flex flex-col gap-[1rem]">
           {barbersList.map(({ name, desc }, index) => (

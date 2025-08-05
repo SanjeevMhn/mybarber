@@ -1,11 +1,9 @@
 import ContactForm from "@/components/ContactForm";
 import NavLink from "@/components/NavLink";
 import Section from "@/components/Section";
-import { Brush, Calendar, Eye, LucideIcon, Scissors } from "lucide-react";
-import Image from "next/image";
-import Link from "next/link";
+import { Brush, Calendar, Eye, Link, LucideIcon, Scissors } from "lucide-react";
 
-export default function Home() {
+export default function Page() {
   const servicesList: Array<{
     id: number;
     name: string;
@@ -127,9 +125,9 @@ export default function Home() {
   };
 
   return (
-    <main className="flex flex-col gap-[3rem] py-[1.5rem]">
+    <main className="flex flex-col pt-[1.5rem]">
       <div className="wrapper ">
-        <section className="hero-section relative isolate bg-orange-300 md:bg-[url(/hero.jpg)] aspect-video max-h-[calc(100vh - 10rem)] bg-cover bg-center rounded-xl">
+        <section className="hero-section relative isolate bg-orange-300 bg-[url(/hero.jpg)] w-full aspect-square md:aspect-video bg-cover bg-center rounded-xl">
           <div
             className="hero-header-text absolute text-white  top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] w-full flex flex-col items-center gap-4 max-w-[90%] lg:max-w-0'
           "
@@ -145,7 +143,7 @@ export default function Home() {
           </div>
         </section>
       </div>
-      <div className="wrapper" id="services">
+      <div className="wrapper py-[5rem]" id="services">
         <Section title="Our Services">
           <ul className="services-list grid grid-cols-[repeat(auto-fill,minmax(min(100%,25rem),1fr))] gap-[1.5rem]">
             {servicesList.map(({ id, name, description, icon: Icon }) => (
@@ -194,7 +192,7 @@ export default function Home() {
         </Section>
       </div>
 
-      <div className="wrapper" id="shop">
+      <div className="wrapper py-[5rem] " id="shop">
         <Section title="Shop">
           <ul className="shopItems-list grid grid-cols-[repeat(auto-fill,minmax(min(100%,18rem),1fr))] gap-[1.2rem]">
             {shopItems.map((item) => (
@@ -241,16 +239,23 @@ export default function Home() {
               </li>
             ))}
           </ul>
-          <button type="button" className="mt-5 bg-amber-600 text-white text-[2rem] rounded-full mx-auto p-[0.5rem_2.5rem] text-center">More</button>
+          <button
+            type="button"
+            className="mt-5 bg-amber-600 text-white text-[2rem] rounded-full mx-auto p-[0.5rem_2.5rem] text-center"
+          >
+            More
+          </button>
         </Section>
       </div>
 
       <div className="wrapper bg-orange-100 py-[5rem]" id="contact">
         <Section title="Contact">
-          <ContactForm />
+          <div className="flex items-center gap-[2rem] flex-col-reverse md:flex-row">
+            <div className="google-maps-container bg-orange-600 md:w-[50%] w-full aspect-square  md:flex-[0_0_50%]"></div>
+            <ContactForm />
+          </div>
         </Section>
       </div>
-
     </main>
   );
 }
