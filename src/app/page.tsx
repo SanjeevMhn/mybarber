@@ -1,3 +1,4 @@
+import ContactForm from "@/components/ContactForm";
 import NavLink from "@/components/NavLink";
 import Section from "@/components/Section";
 import { Brush, Calendar, Eye, LucideIcon, Scissors } from "lucide-react";
@@ -245,7 +246,9 @@ export default function Home() {
       </div>
 
       <div className="wrapper bg-orange-100 py-[5rem]" id="contact">
-        <Section title="Contact"></Section>
+        <Section title="Contact">
+          <ContactForm />
+        </Section>
       </div>
 
     </main>

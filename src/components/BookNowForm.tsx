@@ -13,20 +13,30 @@ import {
   DialogTitle,
 } from "./ui/dialog";
 import { useEffect, useRef, useState } from "react";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 
-type BookAppointmentInputs = {
-  service: string;
-  date: Date;
-  time: string;
-  desc: string;
-};
+const bookAppointmentSchema = z.object({
+  service: z.string().nonempty({message: 'Please select service'}),
+  date: z.date({message: 'Please select date'}),
+  time: z.string({message: 'Please select time'}),
+  desc: z.string()
+})
 
-type UserInfoInputs = {
-  full_name: string;
-  email: string;
-  mobile_no: string;
-  address: string;
-};
+type BookAppointmentInputs = z.infer<typeof bookAppointmentSchema>
+
+const userInfoSchema = z.object({
+  full_name: z.string().min(5,{message: 'Name must be atleast 5 letters long'}),
+  email: z.email().optional(),
+  mobile_no: z
+    .string()
+    .nonempty({message: 'Mobile Number Required'})
+    .min(10, { message: "Must be 10 digits long" })
+    .max(10, { message: "Cannot be more than 10 digits" }),
+  address: z.string().optional(),
+});
+
+type UserInfoInputs = z.infer<typeof userInfoSchema>;
 
 const BookNowForm = () => {
   const {
@@ -39,7 +49,9 @@ const BookNowForm = () => {
     getValues,
     resetField,
     trigger,
-  } = useForm<BookAppointmentInputs>();
+  } = useForm<BookAppointmentInputs>({
+    resolver: zodResolver(bookAppointmentSchema)
+  });
 
   const barbersList: Array<{
     img?: string;
@@ -75,21 +87,23 @@ const BookNowForm = () => {
     register: userInfoRegister,
     formState: { errors: userInfoErrors },
     handleSubmit: handleUserInfoSubmit,
-    reset:userInfoFormReset
-  } = useForm<UserInfoInputs>();
+    reset: userInfoFormReset,
+  } = useForm<UserInfoInputs>({
+    resolver: zodResolver(userInfoSchema),
+  });
 
   const handleUserInfoSubmitFn = (data: UserInfoInputs) => {
     if (data) {
       console.log(data);
     }
-  }
+  };
 
-  const userInfoFormRef = useRef<any>(null)
+  const userInfoFormRef = useRef<any>(null);
 
-  const handleOpenDialog = (open:boolean) => {
-    setOpenDialog(open)
-    userInfoFormReset()
-  }
+  const handleOpenDialog = (open: boolean) => {
+    setOpenDialog(open);
+    userInfoFormReset();
+  };
 
   const [openDialog, setOpenDialog] = useState<boolean>(false);
 
@@ -128,7 +142,7 @@ const BookNowForm = () => {
               optionValue: "name",
             }}
             placeholder="Select Service"
-            {...register("service", { required: "Service Required" })}
+            {...register("service")}
             error={errors.service?.message}
           />
           <div className="form-group">
@@ -138,7 +152,6 @@ const BookNowForm = () => {
             <Controller
               control={control}
               name="date"
-              rules={{ required: "Please Select Date of Appointment" }}
               render={({ field, fieldState }) => (
                 <>
                   <Calendar
@@ -171,9 +184,7 @@ const BookNowForm = () => {
                   type="radio"
                   id="9am"
                   className="time-select"
-                  {...register("time", {
-                    required: "Please select time of appointment",
-                  })}
+                  {...register("time")}
                   value={"9am"}
                 />
                 <label htmlFor="9am">9:00 AM</label>
@@ -183,9 +194,7 @@ const BookNowForm = () => {
                   type="radio"
                   id="10am"
                   className="time-select "
-                  {...register("time", {
-                    required: "Please select time of appointment",
-                  })}
+                  {...register("time")}
                   value={"10am"}
                 />
                 <label htmlFor="10am">10:00 AM</label>
@@ -195,9 +204,7 @@ const BookNowForm = () => {
                   type="radio"
                   id="11am"
                   className="time-select "
-                  {...register("time", {
-                    required: "Please select time of appointment",
-                  })}
+                  {...register("time")}
                   value={"11am"}
                 />
                 <label htmlFor="11am">11:00 AM</label>
@@ -207,9 +214,7 @@ const BookNowForm = () => {
                   type="radio"
                   id="12pm"
                   className="time-select "
-                  {...register("time", {
-                    required: "Please select time of appointment",
-                  })}
+                  {...register("time")}
                   value={"12pm"}
                 />
                 <label htmlFor="12pm">12:00 PM</label>
@@ -261,9 +266,7 @@ const BookNowForm = () => {
                 type="text"
                 input="input"
                 placeholder="Full Name"
-                {...userInfoRegister("full_name", {
-                  required: "Full Name Required",
-                })}
+                {...userInfoRegister("full_name")}
                 error={userInfoErrors.full_name?.message}
               />
               <Input
@@ -271,9 +274,7 @@ const BookNowForm = () => {
                 type="email"
                 input="input"
                 placeholder="Email"
-                {...userInfoRegister("email", {
-                  required: "Email Required",
-                })}
+                {...userInfoRegister("email")}
                 error={userInfoErrors.email?.message}
               />
               <Input
@@ -281,13 +282,7 @@ const BookNowForm = () => {
                 input="input"
                 type="number"
                 placeholder="Mobile Number"
-                {...userInfoRegister("mobile_no", {
-                  required: "Mobile number Required",
-                  minLength: {
-                    value: 10,
-                    message: "Must be 10 digits long",
-                  },
-                })}
+                {...userInfoRegister("mobile_no")}
                 error={userInfoErrors.mobile_no?.message}
               />
               <Input
@@ -295,9 +290,7 @@ const BookNowForm = () => {
                 input="input"
                 type="text"
                 placeholder="Address"
-                {...userInfoRegister("address", {
-                  required: "Address Required",
-                })}
+                {...userInfoRegister("address")}
                 error={userInfoErrors.address?.message}
               />
             </div>
