@@ -53,9 +53,15 @@ const AppSidebar: FC = () => {
   return (
     <Sidebar collapsible="offcanvas">
       <SidebarContent>
-        <SidebarGroup>
-          <SidebarGroupLabel className="text-[3.2rem] p-[2rem_1.2rem] mb-[3rem] text-amber-600">
-            Clippers
+        <SidebarGroup className="flex flex-col gap-[3rem]">
+          <SidebarGroupLabel>
+            <Link
+              href="/"
+              className="text-[3.2rem] text-amber-600"
+              onClick={toggleSidebar}
+            >
+              Clippers
+            </Link>
           </SidebarGroupLabel>
           <SidebarGroupContent>
             {menus.map((menu) => (
