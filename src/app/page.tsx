@@ -244,7 +244,7 @@ export default function Page() {
       <div className="wrapper bg-orange-100 py-[5rem]" id="contact">
         <Section title="Contact">
           <div className="flex items-center gap-[2rem] flex-col-reverse md:flex-row">
-            <div className="google-maps-container bg-orange-600 md:w-[50%] w-full aspect-square  md:flex-[0_0_50%]">
+            <div className="google-maps-container bg-orange-600 md:w-[50%] w-full aspect-square  md:flex-[0_0_50%] border-2 border-neutral-300 rounded-md overflow-hidden">
               <iframe
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3534.6956170087265!2d85.31573757601959!3d27.633942228724145!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb17fbe0339d21%3A0x34daf4c20168d6e7!2sMG%20Salon!5e0!3m2!1sne!2snp!4v1754458963352!5m2!1sne!2snp"
                 // width="600"
