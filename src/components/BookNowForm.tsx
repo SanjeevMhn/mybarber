@@ -57,25 +57,34 @@ const BookNowForm = () => {
   });
 
   const barbersList: Array<{
-    img?: string;
+    id: number;
     name: string;
-    desc: string;
+    img?: string;
+    service: string;
   }> = [
     {
-      name: "Bikram Raut",
-      desc: "Hair and Beard",
+      id: 1,
+      name: "Siraj Jaswal",
+      service: "Hari and Beard",
+      img: 'https://randomuser.me/api/portraits/men/56.jpg'
     },
     {
-      name: "Suman Shrestha",
-      desc: "Color and Massage",
+      id: 2,
+      name: "Hardik Dangol",
+      service: "Coloring and Styling",
+      img: 'https://randomuser.me/api/portraits/men/42.jpg'
     },
     {
-      name: "Kiran Rai",
-      desc: "Hair and Beard",
+      id: 3,
+      name: "Jigyasha Rai",
+      service: "Threading and waxing",
+      img: 'https://randomuser.me/api/portraits/women/27.jpg'
     },
     {
-      name: "Biraj Sharma",
-      desc: "Styling",
+      id: 4,
+      name: "Sumit Shrestha",
+      service: "Hair and Beard",
+      img: 'https://randomuser.me/api/portraits/men/65.jpg'
     },
   ];
 
@@ -246,8 +255,8 @@ const BookNowForm = () => {
       <aside className="additional-info gap-[2rem] flex-col px-[2rem] hidden md:flex">
         <h2 className="text-[2rem] font-bold">Available Barbers</h2>
         <ul className="available-providers-list flex flex-col gap-[1rem]">
-          {barbersList.map(({ name, desc }, index) => (
-            <BarberCard key={index} name={name} desc={desc} />
+          {barbersList.map(({ name, img, service }, index) => (
+            <BarberCard key={index} name={name} service={service} img={img} />
           ))}
         </ul>
       </aside>
